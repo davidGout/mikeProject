@@ -1,0 +1,24 @@
+<div class="wrapper">
+  <h1>Connexion</h1>
+  <p>Veuillez entrer votre identifiant et mot de passe</p>
+  <p *ngIf="error$ | async" class="error-message">Identifiants invalides.</p>
+  <form [formGroup]="form" (ngSubmit)="login()">
+    <mat-form-field>
+      <input matInput class="email" formControlName="email" placeholder="email">
+      <mat-error *ngIf="form.controls.email.errors?.required">
+        Le champ email est obligatoire
+      </mat-error>
+      <mat-error *ngIf="form.controls.email.errors?.email">
+        L'email saisi est invalide
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input class="password" formControlName="password" matInput placeholder="mot de passe" [type]="hidePassword ? 'password' : 'text'">
+      <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility' : 'visibility_off'}}</mat-icon>
+      <mat-error *ngIf="form.controls.password.errors?.required">
+        Le champ password est obligatoire
+      </mat-error>
+    </mat-form-field>
+    <button [disabled]="(buttonDisabled$ | async)" mat-button type="submit">Se connecter</button>
+  </form>
+</div>
